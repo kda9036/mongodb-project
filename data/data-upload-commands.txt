@@ -1,0 +1,11 @@
+# Navigate to data directory 
+
+mongoimport --db IncidentReports --collection Reports --type csv --headerline --file IncidentReports_3-21-23.csv
+
+# CD into images directory
+
+mongofiles -d=IncidentReports put airFryer.jpg convertibleCrib.jpg fridge.jpg mattress.jpg stormDoor.jpg babyFoodStorageJars.jpg dogGuitar.jpg hairDryer.jpg neckFloatie.jpg toaster.jpg bassinet.jpg dryer.jpg heatedThrow.jpg range.jpg treadmill.jpg bike.jpg electricKettle.jpg iceMaker.jpg riceCooker.jpg wirelessPhoneCharger.jpg cellPhone.jpg foodProcessor.jpg logSplitter.jpg shed.jpg placeholder.png
+
+# CD into directory containing the geojson.js file (our root directory) and use the following command to store location data as GeoJSON objects to use for geospatial queries.
+
+mongosh --quiet geojson.js
