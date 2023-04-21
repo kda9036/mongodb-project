@@ -1,0 +1,14 @@
+// Variable overrides
+// Color reference: https://coolors.co/1c0d16-4a0a2c-b195a4-ffffff
+$primary: #5A0C36;
+$secondary: #B398AA;
+$black: #1C0D16;
+$body-color: #1C0D16;
+$border-color: #5A0C36;
+$primary-bg-subtle: #B398AA;
+$table-striped-bg: #B398AA;
+
+// Import bootstrap
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+// Custom

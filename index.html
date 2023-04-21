@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Product Problems | S.H.A.R.D.</title>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+  </head>
+  <body style="padding-top: 60px">
+    <!-- This padding is just so the navbar can be fixed but not overlap anything at the top -->
+    <!-- Navbar -->
+    <nav
+      class="navbar fixed-top navbar-expand-lg bg-primary"
+      data-bs-theme="dark"
+    >
+      <div class="container-fluid">
+        <!-- Page title -->
+        <a class="navbar-brand" href="#">Product Problems</a>
+        <!-- Toggler for mobile -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarToggler"
+          aria-controls="navbarToggler"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Navbar jump links -->
+        <div class="collapse navbar-collapse" id="navbarToggler">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- Top of page -->
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <!-- Keyword search -->
+            <li class="nav-item">
+              <a class="nav-link" href="#word-search">Search by keyword</a>
+            </li>
+            <!-- Location search -->
+            <li class="nav-item">
+              <a class="nav-link" href="#geo-search">Search by Location</a>
+            </li>
+            <!-- Search Results -->
+            <li class="nav-item">
+              <a class="nav-link" href="#results">Search Results</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Body of page-->
+    <div class="container">
+      <!-- Search forms -->
+      <div class="row pt-5">
+        <div class="col-md-12">
+          <h2>Search</h2>
+        </div>
+      </div>
+      <div class="row pt-2">
+        <!-- Keyword search -->
+        <div id="word-search" class="col-md-6 mb-4 mb-md-0">
+          <div class="card">
+            <div class="card-header bg-primary-subtle">
+              <h5 class="card-title m-1">Search by Keyword</h5>
+            </div>
+            <div class="card-body">
+              <!-- Form -->
+              <form id="keywordSearchForm" onsubmit="keywordSearch(event);">
+                <!-- Keyword input -->
+                <div class="mb-3 form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="keyword"
+                    aria-describedby="keywordHelp"
+                    placeholder="Foo"
+                  />
+                  <label for="keyword" class="form-label">Keyword</label>
+                  <div id="keywordHelp" class="form-text">
+                    Case insensitive. Search for any string. Supports partial
+                    words.
+                  </div>
+                </div>
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Location search -->
+        <div id="geo-search" class="col-md-6">
+          <div class="card">
+            <div class="card-header bg-primary-subtle">
+              <h5 class="card-title m-1">Search by Location</h5>
+            </div>
+            <div class="card-body">
+              <!-- Form -->
+              <form id="locSearchForm" onsubmit="locSearch(event);">
+                <div class="container">
+                  <div class="row">
+                    <!-- Latitude input -->
+                    <div class="col-sm-6">
+                      <div class="mb-3 form-floating">
+                        <input
+                          type="text"
+                          name="lat"
+                          class="form-control"
+                          id="lat"
+                          placeholder="42"
+                        />
+                        <label for="lat" class="form-label">Latitude</label>
+                      </div>
+                    </div>
+                    <!-- Longitude input -->
+                    <div class="col-sm-6">
+                      <div class="mb-3 form-floating">
+                        <input
+                          type="text"
+                          name="lon"
+                          class="form-control"
+                          id="lon"
+                          placeholder="42"
+                        />
+                        <label for="lon" class="form-label">Longitude</label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Distance dropdown -->
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-floating mb-3">
+                        <select
+                          class="form-select"
+                          id="distance"
+                          name="distance"
+                          aria-label="Distance"
+                        >
+                          <option selected>Select disance</option>
+                          <option value="5000">5 km</option>
+                          <option value="10000">10 km</option>
+                          <option value="25000">25 km</option>
+                          <option value="50000">50 km</option>
+                          <option value="100000">100 km</option>
+                        </select>
+                        <label for="distance">Distance</label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Submit button -->
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button type="submit" class="btn btn-primary">
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Search results -->
+      <div class="row pt-5">
+        <div class="col-md-12" id="results">
+          <h2>Results</h2>
+          <p class="ms-2" id="result-count"></p>
+        </div>
+      </div>
+      <div class="row pt-2 pb-5">
+        <div class="col-md-12">
+          <!-- Results table -->
+          <table class="table table-striped">
+            <!-- Table header -->
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Product Description</th>
+                <th scope="col">See more</th>
+              </tr>
+            </thead>
+            <!-- Table result rows-->
+            <tbody id="searchResults">
+              <!-- Created dynamically with result data -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for incident details -->
+    <div
+      class="modal fade"
+      id="incidentModal"
+      tabindex="-1"
+      aria-labelledby="incidentModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+      >
+        <div class="modal-content">
+          <!-- Modal header (contains id and date)-->
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="incidentModalLabel">
+              Incident #<span id="incident-id">1</span> on
+              <span id="incident-date">2/13/2023</span>
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <!-- Product information -->
+              <div class="row">
+                <div class="col-md-12">
+                  <h3>Product</h3>
+                  <!-- Product description -->
+                  <h5 class="mb-1"><b>Product Description:</b></h5>
+                  <p id="product-description">
+                    Log Splitter "Black Diamond" 30 Ton, Model YTL-015-134.
+                    Engine from Briggs & Stratton, Serial # 1807140017395,
+                    Engine Model # 15T2320224F8C7024
+                  </p>
+                </div>
+              </div>
+              <div class="row align-items-center border-bottom mb-3">
+                <div class="col-md-6">
+                  <!-- Product image -->
+                  <img id="image" src="" class="img-fluid rounded mb-2" />
+                </div>
+                <div class="col-md-6">
+                  <!-- Category, subcategory, and type -->
+                  <h5 class="mb-1"><b>Category > Subcategory > Type:</b></h5>
+                  <p>
+                    <span id="category">Yard & Garden</span> >
+                    <span id="sub-category">Gardening & Landscaping</span> >
+                    <span id="type">Log Splitters (1457)</span>
+                  </p>
+                  <!-- Manufacturer-->
+                  <h5 class="mb-1"><b>Manufacturer:</b></h5>
+                  <p id="manufacturer">Briggs & Stratton Corporation</p>
+                  <!-- Brand -->
+                  <h5 class="mb-1"><b>Brand:</b></h5>
+                  <p id="brand">Black Diamond/Briggs & Stratton</p>
+                  <!-- Retailer -->
+                  <h5 class="mb-1"><b>Retailer:</b></h5>
+                  <p id="retailer">N/A</p>
+                </div>
+              </div>
+              <!-- Incident information -->
+              <div class="row border-bottom mb-3">
+                <div class="col-md-12">
+                  <h3>Incident</h3>
+                  <!-- Location (contains city, state, and zip)-->
+                  <h5 class="mb-1"><b>Location:</b></h5>
+                  <p>
+                    <span id="city">Landing</span>,
+                    <span id="state">Nebraska</span> <span id="zip">7850</span>
+                  </p>
+                  <!-- Description -->
+                  <h5 class="mb-1"><b>Description:</b></h5>
+                  <p id="incident-description">
+                    Since I bought the log splitter (3 years ago), it always has
+                    a tremendous amount of kick back on the recoil. In two
+                    different occasions, because of the kick back, I severely
+                    strained my wrist. The last time this occurred was on
+                    2/10/23. I contacted the company, and they told me that they
+                    don't have any recall on my model, but they have the same
+                    problem with other models, which they do have recalls.
+                  </p>
+                </div>
+              </div>
+              <!-- Comments -->
+              <div class="row">
+                <div class="col-md-12">
+                  <h3>Comments</h3>
+                  <!-- Comment form -->
+                  <form
+                    class="mb-2"
+                    id="commentsForm"
+                    onsubmit="submitComment(event);"
+                  >
+                    <h5><b>Add your comment:</b></h5>
+                    <div class="container">
+                      <div class="row align-items-center">
+                        <!-- Name input -->
+                        <div class="col-md-6">
+                          <div class="mb-3 form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="name"
+                              placeholder="Jesse Smith"
+                            />
+                            <label for="name" class="form-label">Name</label>
+                          </div>
+                        </div>
+                        <!-- Comment input -->
+                        <div class="col-md-6">
+                          <div class="mb-3 form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="comment"
+                              placeholder="Yikes"
+                            />
+                            <label for="comment" class="form-label"
+                              >Comment</label
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Comment submit button -->
+                      <div class="row">
+                        <div class="col-md-12">
+                          <button type="submit" class="btn btn-primary">
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- Comment table -->
+                  <table class="table table-striped">
+                    <!-- Comment table Header-->
+                    <thead>
+                      <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Comment</th>
+                      </tr>
+                    </thead>
+                    <!-- Comment rows -->
+                    <tbody id="commentRows">
+                      <tr>
+                        <td scope="row">2/14/2023</td>
+                        <td>James Doe</td>
+                        <td>
+                          Company is bad. They should have a recall and get
+                          better at engineering.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td scope="row">2/15/2023</td>
+                        <td>Jane Greene</td>
+                        <td>I agree with John.</td>
+                      </tr>
+                      <tr>
+                        <td scope="row">2/16/2023</td>
+                        <td>John Deere</td>
+                        <td>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor incididunt ut labore et
+                          dolore magna aliqua. Ut enim ad minim veniam, quis
+                          nostrud exercitation ullamco laboris nisi ut aliquip
+                          ex ea commodo consequat. Duis aute irure dolor in
+                          reprehenderit in voluptate velit esse cillum dolore eu
+                          fugiat nulla pariatur. Excepteur sint occaecat
+                          cupidatat non proident, sunt in culpa qui officia
+                          deserunt mollit anim id est laborum.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Button to close modal-->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Imports -->
+    <script src="./bs.js"></script>
+    <script src="./frontend-scripts.js"></script>
+  </body>
+</html>
