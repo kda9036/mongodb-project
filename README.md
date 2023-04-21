@@ -48,7 +48,7 @@ Comments are stored in the document and will show in subsequent retrievals of th
 
 # Technologies / Software
 
-MongoDB, JavaScript, SCSS, JSON, Node.js and Express, Bootstrap, Microsoft Excel
+MongoDB, JavaScript, HTML, SCSS, JSON, Node.js and Express, Bootstrap, Microsoft Excel
 
 # README from Original Project:
 
