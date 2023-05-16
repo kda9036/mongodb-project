@@ -120,6 +120,8 @@ Most records in the data set do not have an associated image. Records found that
 
 Search By Keyword: tremendous, guitar, deflated
 
+## Search by Location
+
 Search By Location (Latitude/Longitude) \*Note the values are not exact:
 
 Flagstaff, Arizona: (35.2,-111.6) Distance: 5km
