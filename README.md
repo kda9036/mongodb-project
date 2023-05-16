@@ -120,7 +120,7 @@ Most records in the data set do not have an associated image. Records found that
 
 Search By Keyword: tremendous, guitar, deflated
 
-** Note: Images might not be loading - may need to fix imports / code
+** Note: Some images, such as the default image,  were not loaded into the database for the demo video
 
 ## Search by Location
 
