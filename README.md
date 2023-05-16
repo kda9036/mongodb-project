@@ -120,6 +120,8 @@ Most records in the data set do not have an associated image. Records found that
 
 Search By Keyword: tremendous, guitar, deflated
 
+** Note: Images might not be loading - may need to fix imports / code
+
 ## Search by Location
 
 Search By Location (Latitude/Longitude) \*Note the values are not exact:
